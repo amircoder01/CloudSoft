@@ -14,6 +14,11 @@ public class NewsletterController : Controller
     {
         return View();
     }
+    [HttpGet]
+    public IActionResult Subscribers()
+    {
+        return View(_subscribers);
+    }
 
     [HttpPost]
     public IActionResult Subscribe(Subscriber subscriber)
