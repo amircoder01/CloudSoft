@@ -1,7 +1,10 @@
+using CloudSoft.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<INewsletterService, NewsletterService>();
 
 var app = builder.Build();
 
