@@ -1,3 +1,4 @@
+using CloudSoft.Repositories;
 using CloudSoft.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<INewsletterService, NewsletterService>();
+builder.Services.AddSingleton<ISubscriberRepository, InMemorySubscriberRepository>();
 
 var app = builder.Build();
 
