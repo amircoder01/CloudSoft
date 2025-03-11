@@ -1,7 +1,6 @@
 # This workflow will build the GithubActionsDemo project
 
 name: CloudSoftPipelineDemo
-
 on:
   push:
     branches:
