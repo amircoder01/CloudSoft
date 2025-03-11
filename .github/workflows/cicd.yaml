@@ -32,6 +32,7 @@ jobs:
         with:
           name: app-artifacts
           path: ./publish
+
   deploy:
     runs-on: self-hosted
     needs: build
@@ -53,4 +54,4 @@ jobs:
 
     - name: Start the application service
       run: |
-        sudo systemctl start CloudSoft.service  
+        sudo systemctl start CloudSoft.service        
