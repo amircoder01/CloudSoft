@@ -1,6 +1,6 @@
 # This workflow will build the GithubActionsDemo project
 
-name: GithubActionsDemo
+name: CloudSoft
 
 on:
   push:
@@ -35,7 +35,6 @@ jobs:
         name: app-artifacts
         path: ./publish
 
-
   deploy:
     runs-on: self-hosted
     needs: build
@@ -57,4 +56,5 @@ jobs:
 
     - name: Start the application service
       run: |
-        sudo systemctl start Cloudsoft.service        
+        sudo systemctl start CloudSoft.service        
+       
