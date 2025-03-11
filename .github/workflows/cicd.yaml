@@ -33,8 +33,7 @@ jobs:
         with:
           name: app-artifacts
           path: ./publish
-
-   deploy:
+  deploy:
     runs-on: self-hosted
     needs: build
 
