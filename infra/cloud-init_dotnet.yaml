@@ -1,14 +1,23 @@
 #cloud-config
 
-# Install .Net Runtime 8.0
+# Install .NET Runtime 8.0
 runcmd:
-  # Register Microsoft repository (which includes .Net Runtime 8.0 package)
+  # Register Microsoft repository (which includes .NET Runtime 8.0 package)
   - wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
   - dpkg -i packages-microsoft-prod.deb
 
-  # Install .Net Runtime 8.0
+  # Install .NET Runtime 8.0
   - apt-get update
   - apt-get install -y aspnetcore-runtime-8.0
+
+  # Create application directory (if not already created)
+  - mkdir -p /opt/CloudSoft
+  - chown -R www-data:www-data /opt/CloudSoft
+
+  # Reload systemd and start service
+  - systemctl daemon-reload
+  - systemctl enable CloudSoft.service
+  - systemctl start CloudSoft.service
 
 # Create a service for the application
 write_files:
@@ -16,6 +25,7 @@ write_files:
     content: |
       [Unit]
       Description=ASP.NET Web App running on Ubuntu
+      After=network.target
 
       [Service]
       WorkingDirectory=/opt/CloudSoft
@@ -25,6 +35,7 @@ write_files:
       KillSignal=SIGINT
       SyslogIdentifier=CloudSoft
       User=www-data
+      Group=www-data
       Environment=ASPNETCORE_ENVIRONMENT=Production
       Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
       Environment="ASPNETCORE_URLS=http://*:5000"
@@ -33,7 +44,7 @@ write_files:
       WantedBy=multi-user.target      
     owner: root:root
     permissions: '0644'
-    
+
 systemd:
   units:
     - name: CloudSoft.service
