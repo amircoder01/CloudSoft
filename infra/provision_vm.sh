@@ -1,5 +1,4 @@
 #!/bin/bash
-
 resource_group=GithubActionsDemoRG
 vm_name=GithubActionsDemoVM
 vm_port=5000
