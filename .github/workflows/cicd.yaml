@@ -34,28 +34,25 @@ jobs:
           name: app-artifacts
           path: ./publish
 
-  deploy:
+   deploy:
     runs-on: self-hosted
     needs: build
 
     steps:
-      - name: Download the artifacts from GitHub (from the build job)
-        uses: actions/download-artifact@v4
-        with:
-          name: app-artifacts
-          path: ./publish
+    - name: Download the artifacts from Github (from the build job)
+      uses: actions/download-artifact@v4
+      with:
+        name: app-artifacts
 
-      - name: Stop the application service
-        run: |
-          sudo systemctl stop CloudSoft.service || true        
+    - name: Stop the application service
+      run: |
+        sudo systemctl stop CloudSoft.service        
 
-      - name: Deploy the application
-        run: |
-          sudo rm -Rf /opt/CloudSoft/*
-          sudo cp -r ${{ github.workspace }}/publish/* /opt/CloudSoft
-          sudo chown -R www-data:www-data /opt/CloudSoft
+    - name: Deploy the the application
+      run: |
+        sudo rm -Rf /opt/CloudSoft || true
+        sudo cp -r /home/azureuser/actions-runner/_work/CloudSoft/CloudSoft/ /opt/CloudSoft        
 
-      - name: Reload systemd and restart the application service
-        run: |
-          sudo systemctl daemon-reload
-          sudo systemctl start CloudSoft.service  
+    - name: Start the application service
+      run: |
+        sudo systemctl start CloudSoft.service  
