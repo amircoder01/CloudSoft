@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<INewsletterService, NewsletterService>();
-//builder.Services.AddSingleton<ISubscriberRepository, InMemorySubscriberRepository>();
+builder.Services.AddSingleton<ISubscriberRepository, InMemorySubscriberRepository>();
 // Check if MongoDB should be used (default to false if not specified)
 
 // Add HttpContextAccessor for URL generation
