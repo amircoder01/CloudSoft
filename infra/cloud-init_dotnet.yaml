@@ -25,7 +25,7 @@ write_files:
       KillSignal=SIGINT
       SyslogIdentifier=CloudSoft
       User=www-data
-      Environment=ASPNETCORE_ENVIRONMENT=Production
+      ASPNETCORE_ENVIRONMENT=Production
       Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
       Environment=ASPNETCORE_URLS=http://0.0.0.0:5000
 

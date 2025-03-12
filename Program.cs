@@ -8,8 +8,7 @@ using MongoDB.Driver;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<INewsletterService, NewsletterService>();
-builder.Services.AddSingleton<ISubscriberRepository, InMemorySubscriberRepository>();
+
 // Check if MongoDB should be used (default to false if not specified)
 
 // Add HttpContextAccessor for URL generation
@@ -67,6 +66,11 @@ else
 
     Console.WriteLine("Using in-memory repository");
 }
+
+
+builder.Services.AddScoped<INewsletterService, NewsletterService>();
+builder.Services.AddSingleton<ISubscriberRepository, InMemorySubscriberRepository>();
+
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
